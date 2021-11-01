@@ -1,10 +1,10 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { PSDB } from 'planetscale-node';
-import { allParticipantsQuery } from '../queries/participants';
+import { getParticipantsList } from '../queries/participants';
 
 const conn = new PSDB('main');
 
-async function gameDetails(req: VercelRequest, res: VercelResponse) {
+async function bootHandler(req: VercelRequest, res: VercelResponse) {
   const { method } = req;
 
   if (method !== 'GET') {
@@ -17,7 +17,7 @@ async function gameDetails(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const [participants] = await conn.query(allParticipantsQuery, null);
+    const [participants] = await conn.execute(getParticipantsList, []);
     res.status(200).json({
       data: {
         participants,
@@ -33,4 +33,4 @@ async function gameDetails(req: VercelRequest, res: VercelResponse) {
   }
 }
 
-export default gameDetails;
+export default bootHandler;
