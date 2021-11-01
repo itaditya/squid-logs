@@ -1,8 +1,8 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { PSDB } from 'planetscale-node';
+import { getConnection } from '../server/db';
 import { getParticipantsList } from '../server/queries/participants';
 
-const conn = new PSDB('main');
+const conn = getConnection();
 
 async function bootHandler(req: VercelRequest, res: VercelResponse) {
   const { method } = req;
