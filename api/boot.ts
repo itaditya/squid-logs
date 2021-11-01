@@ -8,9 +8,9 @@ async function bootHandler(req: VercelRequest, res: VercelResponse) {
   const { method } = req;
 
   if (method !== 'GET') {
-    res.status(404).json({
+    res.status(405).json({
       error: {
-        message: 'Action not found',
+        message: 'Only GET is supported',
       },
     });
     return;

@@ -7,12 +7,21 @@ const conn = getConnection();
 async function participantByIdHandler(req: VercelRequest, res: VercelResponse) {
   const { method, query } = req;
 
+  if (method !== 'GET') {
+    res.status(405).json({
+      error: {
+        message: 'Only GET is supported',
+      },
+    });
+    return;
+  }
+
   const participantId = query.id;
 
-  if (method !== 'GET' || !participantId) {
-    res.status(404).json({
+  if (!participantId) {
+    res.status(400).json({
       error: {
-        message: 'Action not found',
+        message: 'Please provide id query param',
       },
     });
     return;
