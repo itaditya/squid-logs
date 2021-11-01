@@ -1,6 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { PSDB } from 'planetscale-node';
-import { getParticipantsList } from '../queries/participants';
+import { getParticipantsList } from '../server/queries/participants';
 
 const conn = new PSDB('main');
 
