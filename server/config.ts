@@ -1,3 +1,1 @@
-
-// change to main
-export const dbBranch = 'session';
+export const dbBranch = 'main';
