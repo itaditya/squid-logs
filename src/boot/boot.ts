@@ -1,12 +1,15 @@
 import { fetcher } from '../shared/utils/fetcher';
 import { delaysForDebug } from '../shared/config';
 
-async function init() {
+export async function loadBootData() {
   console.log('boot start');
-  const result = await fetcher('/api/boot', {
-    delay: delaysForDebug.bootApi,
-  });
-  console.log(`boot result`, result); // aditodo remove this
+  try {
+    const result = await fetcher('/api/boot', {
+      delay: delaysForDebug.bootApi,
+    });
+    return result;
+    console.log(`boot success result`, result); // aditodo remove this
+  } catch (error) {
+    return error;
+  }
 }
-
-init();

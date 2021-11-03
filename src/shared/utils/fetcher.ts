@@ -1,10 +1,4 @@
-function sleep(delay: number) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('done');
-    }, delay);
-  });
-}
+import { sleep } from './misc';
 
 type Query = Record<string, string>;
 
