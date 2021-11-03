@@ -1,8 +1,12 @@
 import { v4 as uuid } from 'uuid';
 import cookie from 'cookie';
 
-export function createSessionCookie() {
+export function createSessionId() {
   const sessionId = uuid();
+  return sessionId;
+}
+
+export function createSessionCookie(sessionId) {
   const sessionCookie = cookie.serialize('session_id', sessionId, {
     httpOnly: true,
     secure: true,

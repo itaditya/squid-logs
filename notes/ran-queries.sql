@@ -95,4 +95,9 @@ FROM
 ALTER TABLE `participants_games_junction`
 ADD result varchar(30) NOT NULL;
 
+CREATE TABLE `sessions` (
+  `session_id` varchar(50) NOT NULL PRIMARY KEY,
+  `user_id` int NOT NULL
+);
+
 --- did till here
