@@ -2,6 +2,7 @@ import { VercelRequest, VercelResponse } from '@vercel/node';
 import { getConnection } from '../server/db';
 import { getSessionCookie } from '../server/utils/sessionCookie';
 import { getParticipantsList } from '../server/queries/participants';
+import { getOrganiserById } from '../server/queries/organisers';
 import { getSessionById } from '../server/queries/sessions';
 
 const conn = getConnection();
@@ -24,6 +25,21 @@ async function getUserId(sessionId) {
   }
 
   return userId;
+}
+
+async function getParticipantsListData() {
+  const [participants] = await conn.execute(getParticipantsList, []);
+  return participants;
+}
+
+async function getCurrentOrganiserData(userId) {
+  const [organisers] = await conn.execute(getOrganiserById, [userId]);
+
+  if (organisers.length < 1) {
+    return Promise.reject();
+  }
+
+  return organisers[0];
 }
 
 async function bootHandler(req: VercelRequest, res: VercelResponse) {
@@ -52,13 +68,15 @@ async function bootHandler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-
   try {
-    console.log(`userId`, userId); // aditodo remove this
-    const [participants] = await conn.execute(getParticipantsList, []);
+    const [participants, organiser] = await Promise.all([
+      getParticipantsListData(),
+      getCurrentOrganiserData(userId),
+    ]);
     res.status(200).json({
       data: {
         participants,
+        current_organiser: organiser,
       },
     });
   } catch (error) {
