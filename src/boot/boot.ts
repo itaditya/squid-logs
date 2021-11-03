@@ -7,8 +7,8 @@ export async function loadBootData() {
     const result = await fetcher('/api/boot', {
       delay: delaysForDebug.bootApi,
     });
-    return result;
     console.log(`boot success result`, result); // aditodo remove this
+    return result;
   } catch (error) {
     return error;
   }

@@ -13,9 +13,15 @@ async function loadMain() {
   return setup;
 }
 
+function removeBootElem() {
+  const bootElem = document.getElementById('boot');
+  bootElem.remove();
+}
+
 async function init() {
   const [result, setup] = await Promise.all([loadBootData(), loadMain()]);
   setup(result);
+  removeBootElem();
 }
 
 init();

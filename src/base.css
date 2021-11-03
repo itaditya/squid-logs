@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#boot {
+  background-color: black;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  position: absolute;
+  inset: 0;
+}
