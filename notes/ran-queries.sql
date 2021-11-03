@@ -35,11 +35,11 @@ CREATE TABLE `participants_games_junction` (
   `result` varchar(30) NOT NULL
 );
 
-INSERT INTO `organisers` (`email`, `role`, `name`, `money_amount`)
-VALUES ('frontman@squidcorp.com', 'frontman', '2021 Frontman', 1000000);
+INSERT INTO `organisers` (`email`, `password`, `role`, `name`, `money_amount`)
+VALUES ('frontman@squidcorp.com', '27efe29d2cc65e712f7f42d1674c00d55fdd6c037aa8e500b2bb905b5050936e', 'frontman', '2021 Frontman', 1000000);
 
-INSERT INTO `organisers` (`email`, `role`, `name`, `money_amount`, `money_currency`)
-VALUES ('actuallycop@kypd.com', 'manager', 'Hwang Jun-ho', 20000, 'KRW');
+INSERT INTO `organisers` (`email`, `password`, `role`, `name`, `money_amount`, `money_currency`)
+VALUES ('actuallycop@kypd.com', 'a6f6c548a219357861e12029e4f44ae5be53e6e8aed90299f06adbbab79f4fb8', 'manager', 'Hwang Jun-ho', 20000, 'KRW');
 
 INSERT INTO `participants` (`name`)
 VALUES 

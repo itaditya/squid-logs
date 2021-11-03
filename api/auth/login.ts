@@ -1,3 +1,4 @@
+import { createHash } from 'crypto';
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { getConnection } from '../../server/db';
 import {
@@ -41,6 +42,14 @@ function getLoginData(data) {
   return null;
 }
 
+function getEncryptedPassword(rawPassword) {
+  // !Note- probably insecure way to encrypt, don't use in production app
+  const hash = createHash('sha256');
+  hash.update(rawPassword);
+  const result = hash.digest('hex');
+  return result;
+}
+
 async function getUserId(loginData) {
   const { type, credentials } = loginData;
 
@@ -54,7 +63,7 @@ async function getUserId(loginData) {
     }
 
     const { id, password } = results[0];
-    const encryptedPassword = credentials.password; // wrap with encrypt func.
+    const encryptedPassword = getEncryptedPassword(credentials.password);
 
     if (encryptedPassword === password) {
       return id;
@@ -120,7 +129,7 @@ async function loginHandler(req: VercelRequest, res: VercelResponse) {
   try {
     const sessionId = createSessionId();
 
-    await conn.execute(createSession, [sessionId, 1]);
+    await conn.execute(createSession, [sessionId, userId]);
 
     const sessionCookie = createSessionCookie(sessionId);
     res.setHeader('Set-Cookie', sessionCookie);
