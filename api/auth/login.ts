@@ -113,7 +113,7 @@ async function loginHandler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  let userId;
+  let userId = null;
   try {
     userId = await getUserId(loginData);
   } catch (error) {
