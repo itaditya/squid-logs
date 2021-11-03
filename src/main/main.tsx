@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './features/app/App';
-import { delaysForDebug } from './shared/config';
+import { delaysForDebug } from '../shared/config';
 
 const appDelay = delaysForDebug.app;
 

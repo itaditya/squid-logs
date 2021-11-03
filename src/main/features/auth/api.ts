@@ -1,4 +1,4 @@
-import { fetcher } from '../../shared/utils/fetcher';
+import { fetcher } from '../../../shared/utils/fetcher';
 
 function login(credentials: Object) {
   const payload = {
