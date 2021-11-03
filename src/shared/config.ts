@@ -1,4 +1,4 @@
 export const delaysForDebug = {
-  app: null,
-  bootApi: null,
+  app: undefined,
+  bootApi: undefined,
 };
