@@ -28,7 +28,7 @@ type Options = RequestInit & {
   headers?: Record<string, string>;
 };
 
-export async function fetcher(url: RequestInfo, options: Options) {
+export async function fetcher(url: RequestInfo, options: Options = {}) {
   const { delay, shouldFail, format = 'json', query, payload, headers, ...fetchOptions } = options;
 
   const headersInstance = new Headers(headers);

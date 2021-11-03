@@ -1,11 +1,24 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './features/app/App';
+import { delaysForDebug } from './shared/config';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+const appDelay = delaysForDebug.app;
+
+function renderApp() {
+  console.log('render app');
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    document.getElementById('app'),
+  );
+}
+
+if (appDelay) {
+  setTimeout(() => {
+    renderApp();
+  }, appDelay);
+} else {
+  renderApp();
+}
