@@ -14,6 +14,18 @@ export function createSessionCookie() {
   return sessionCookie;
 }
 
+export function clearSessionCookie() {
+  const sessionCookie = cookie.serialize('session_id', '', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 0,
+  });
+
+  return sessionCookie;
+}
+
 export function getSessionCookie(cookies = {}) {
   const sessionId = cookies['session_id'];
 
