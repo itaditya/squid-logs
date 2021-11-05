@@ -3,11 +3,12 @@ import { HomeView } from '../home/HomeView';
 import { AuthView } from '../auth/AuthView/AuthView';
 import { LoginView } from '../auth/LoginView/LoginView';
 import { NotFoundView } from '../notFound/NotFoundView';
-import './App.css';
+import { themeClass } from './theme.css';
+import { appClass } from './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className={`${appClass} ${themeClass}`}>
       <Routes>
         <Route path="/" element={<HomeView />} />
         <Route path="auth" element={<AuthView />}>

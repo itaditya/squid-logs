@@ -22,6 +22,6 @@ export function setup(bootData: any) {
         </BrowserRouter>
       </Provider>
     </React.StrictMode>,
-    document.getElementById('app'),
+    document.getElementById('root-main'),
   );
 }
