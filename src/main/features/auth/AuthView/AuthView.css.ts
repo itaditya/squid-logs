@@ -34,7 +34,7 @@ export const asideClass = style({
 });
 
 export const authBoxClass = style({
-  backgroundColor: getHslColor(vars.color.raw.pink[400]),
+  backgroundColor: getHslColor(vars.color.brand.surface.light[600]),
   minWidth: '350px',
   minHeight: '500px',
 });

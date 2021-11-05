@@ -14,8 +14,9 @@ const colors = {
     900: '#0F172A',
   },
   green: {
-    400: '188deg 27% 58%',
-    500: '179deg 38% 46%',
+    100: '203deg 26% 82%',
+    400: '180deg 78% 30%',
+    500: '195deg 80% 33%',
   },
   pink: {
     300: '339deg 77% 90%',
@@ -24,11 +25,14 @@ const colors = {
     600: '330deg 84% 50%',
   },
   yellow: {
-    500: '40deg 72% 64%',
-    600: '36deg 54% 69%',
+    400: '40deg 92% 62%',
+    500: '36deg 54% 69%',
+    600: '24deg 52% 44%',
+    700: '27deg 39% 26%',
   },
   black: {
     700: '223deg 22% 13%',
+    900: '0deg 0% 0%',
   },
 };
 
@@ -39,16 +43,16 @@ export const [themeClass, vars] = createTheme({
       surface: {
         light: {
           500: colors.gray[100],
-          600: colors.pink[300],
+          600: colors.yellow[400],
         },
         dark: {
           500: colors.black[700],
         },
       },
       highlight: {
-        400: '235deg 50% 50%',
-        500: '235deg 100% 50%',
-        600: '235deg 70% 20%',
+        400: colors.pink[400],
+        500: colors.pink[500],
+        600: colors.pink[600],
       },
     },
   },
