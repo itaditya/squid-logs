@@ -15,7 +15,10 @@ async function loadMain() {
 
 function removeBootElem() {
   const bootElem = document.getElementById('boot');
-  bootElem.remove();
+
+  if (bootElem) {
+    bootElem.remove();
+  }
 }
 
 async function init() {

@@ -1,4 +1,5 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useAuthCompletionStatus } from '../hooks';
 import { authViewClass, navClass, mainClass, asideClass, authBoxClass } from './AuthView.css';
 
 function AuthBox() {
@@ -7,6 +8,31 @@ function AuthBox() {
       <Outlet />
     </section>
   );
+}
+
+function Content() {
+  const location = useLocation();
+  const completionStatus = useAuthCompletionStatus();
+
+  if (completionStatus === 'login') {
+    if (location.pathname !== '/auth/login') {
+      return <Navigate to="login" />;
+    }
+  }
+
+  if (completionStatus === 'verify_email') {
+    if (location.pathname !== '/auth/verify_email') {
+      return <Navigate to="verify_email" />;
+    }
+  }
+
+  if (completionStatus === 'complete') {
+    if (location.pathname !== '/') {
+      return <Navigate to="/" />;
+    }
+  }
+
+  return <AuthBox />;
 }
 
 function OrganiserPicker() {
@@ -27,7 +53,7 @@ export function AuthView() {
   return (
     <div className={authViewClass}>
       <main className={mainClass}>
-        <AuthBox />
+        <Content />
       </main>
       <nav className={navClass}>
         <Link to="/">Home</Link>
