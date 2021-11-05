@@ -9,10 +9,17 @@ const loginTypes = {
 };
 
 export function LoginView() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleTabChange(newVal: string) {
-    setSearchParams({ login_type: newVal });
+    const params = {};
+    searchParams.forEach((val, key) => {
+      // @ts-ignore
+      params[key] = val;
+    });
+    // @ts-ignore
+    params['login_type'] = newVal;
+    setSearchParams(params);
   }
 
   function getActiveTabValue() {
