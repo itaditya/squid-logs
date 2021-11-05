@@ -43,7 +43,7 @@ export function EmailLogin() {
           id={passwordInputId}
           type="password"
           name="password"
-          placeholder="Eg- frontman@squidcorp.com"
+          placeholder="Eg- paymemoney"
         />
       </div>
       <div className={actionsClass}>

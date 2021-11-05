@@ -8,17 +8,20 @@ export const formClass = style({
   paddingInline: '25px',
   paddingTop: '30px',
   paddingBottom: '10px',
-  gap: '30px',
+  gap: '10px',
 });
 
 export const formDescriptionClass = style({
   margin: '0',
+  marginBlockEnd: '20px',
   color: getHslColor(vars.color.raw.gray[200]),
 });
 
 export const fieldClass = style({
   display: 'flex',
   flexDirection: 'column',
+  gap: '5px',
+  minHeight: '85px',
 });
 
 export const labelClass = style({
@@ -26,10 +29,11 @@ export const labelClass = style({
 });
 
 export const inputClass = style({
-  fontSize: '20px',
+  fontSize: '16px',
   backgroundColor: 'transparent',
   color: getHslColor(vars.color.raw.pink[600]),
-  paddingBlock: '8px 4px',
+  paddingBlock: '15px 5px',
+  paddingInline: '2px',
   border: 'none',
   borderBottomWidth: '2px',
   borderBottomStyle: 'solid',
@@ -43,7 +47,11 @@ export const inputClass = style({
       outline: 'none',
       backgroundColor: getHslColor(vars.color.brand.highlight[500]),
       color: getHslColor(vars.color.raw.black[900]),
+      borderBottomWidth: '0',
+      borderBottomColor: 'transparent',
+      borderRadius: '5px',
       paddingInline: '10px',
+      paddingBlock: '15px',
     },
     '&:focus::placeholder': {
       color: getHslColor(vars.color.brand.white),
