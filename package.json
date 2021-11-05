@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --port $PORT",
-    "build": "tsc && vite build",
+    "lint": "tsc",
+    "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
