@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { IdProvider } from '@radix-ui/react-id';
 import { store } from './features/app/store';
 import App from './features/app/App';
 import { appInit } from './features/app/actions';
@@ -18,7 +19,9 @@ export function setup(bootData: any) {
     <React.StrictMode>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <IdProvider>
+            <App />
+          </IdProvider>
         </BrowserRouter>
       </Provider>
     </React.StrictMode>,

@@ -3,12 +3,22 @@ import { vars } from '../../app/theme.css';
 import { getHslColor } from '../../../../shared/utils/colors';
 
 export const loginViewClass = style({
-  fontSize: '24px',
   color: getHslColor(vars.color.raw.black[700]),
-  paddingInline: '30px',
 });
 
-export const inputClass = style({
-  fontSize: '20px',
-  backgroundColor: getHslColor(vars.color.raw.pink[300]),
+export const tabsListClass = style({
+  display: 'flex',
+});
+
+export const tabTriggerClass = style({
+  flex: 1,
+  textAlign: 'center',
+  paddingBlock: '10px',
+  fontSize: '24px',
+  selectors: {
+    '&[data-state="inactive"]': {
+      backgroundColor: getHslColor(vars.color.raw.black[900]),
+      color: getHslColor(vars.color.brand.white),
+    },
+  },
 });

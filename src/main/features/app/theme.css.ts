@@ -4,7 +4,7 @@ const colors = {
   gray: {
     50: '210deg 40% 98%',
     100: '210deg 40% 96.1%',
-    200: '#E2E8F0',
+    200: '40deg 33% 27%',
     300: '#CBD5E1',
     400: '#94A3B8',
     500: '#64748B',
@@ -25,6 +25,7 @@ const colors = {
     600: '330deg 84% 50%',
   },
   yellow: {
+    200: '40deg 69% 84%',
     400: '40deg 92% 62%',
     500: '36deg 54% 69%',
     600: '24deg 52% 44%',
@@ -40,10 +41,12 @@ export const [themeClass, vars] = createTheme({
   color: {
     raw: colors,
     brand: {
+      white: '0deg 0% 100%',
       surface: {
         light: {
           500: colors.gray[100],
           600: colors.yellow[400],
+          700: colors.yellow[500],
         },
         dark: {
           500: colors.black[700],
