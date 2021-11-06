@@ -4,6 +4,6 @@ export const getOrganiserByEmail = `
 `;
 
 export const getOrganiserById = `
-  SELECT id, email, phone_code, phone_number, role, name, money_amount, money_currency from organisers
+  SELECT id, email, email_verified, phone_code, phone_number, role, name, money_amount, money_currency from organisers
   WHERE id = ?;
 `;

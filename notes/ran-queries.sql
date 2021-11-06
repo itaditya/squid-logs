@@ -5,6 +5,7 @@ roles: 'frontman' | 'manager' | 'soldier' | 'worker'
 CREATE TABLE `organisers` (
   `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `email` varchar(255),
+  `email_verified` BOOLEAN DEFAULT false,
   `phone_code` char(5),
   `phone_number` varchar(15),
   `password` varchar(255),
@@ -16,7 +17,8 @@ CREATE TABLE `organisers` (
 
 CREATE TABLE `participants` (
   `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `name` varchar(255) DEFAULT ''
+  `name` varchar(255) DEFAULT '',
+  `avatar_url` varchar(250)
 );
 
 CREATE TABLE `games` (
@@ -99,5 +101,13 @@ CREATE TABLE `sessions` (
   `session_id` varchar(50) NOT NULL PRIMARY KEY,
   `user_id` int NOT NULL
 );
+
+-- not needed since I've updated original Create statement here
+ALTER TABLE `organisers`
+ADD `email_verified` BOOLEAN DEFAULT false;
+
+-- not needed since I've updated original Create statement here
+ALTER TABLE `participants`
+ADD `avatar_url` varchar(250);
 
 --- did till here

@@ -1,5 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { getConnection } from '../server/db';
+import { getFormattedOrganiser } from '../server/utils/formatDbData';
 import { getSessionCookie } from '../server/utils/sessionCookie';
 import { getParticipantsList } from '../server/queries/participants';
 import { getOrganiserById } from '../server/queries/organisers';
@@ -39,7 +40,10 @@ async function getCurrentOrganiserData(userId) {
     return Promise.reject();
   }
 
-  return organisers[0];
+  const storedOrganiser = organisers[0];
+  const formattedOrganiser = getFormattedOrganiser(storedOrganiser);
+
+  return formattedOrganiser;
 }
 
 async function bootHandler(req: VercelRequest, res: VercelResponse) {
