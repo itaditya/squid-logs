@@ -1,4 +1,4 @@
-import mysql from 'mysql2';
+import { createPool } from 'mysql2';
 
 let sharedPool = null;
 
@@ -7,7 +7,7 @@ export function getConnection() {
     return sharedPool;
   }
 
-  const pool = mysql.createPool({
+  const pool = createPool({
     host: process.env.PLANETSCALE_DB_HOST,
     user: process.env.PLANETSCALE_DB_USERNAME,
     password: process.env.PLANETSCALE_DB_PASSWORD,
