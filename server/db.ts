@@ -1,15 +1,24 @@
-import { PSDB } from 'planetscale-node';
-import { dbBranch } from './config';
+import mysql from 'mysql2';
 
-let sharedConn = null;
+let sharedPool = null;
 
 export function getConnection() {
-  if (sharedConn) {
-    return sharedConn;
+  if (sharedPool) {
+    return sharedPool;
   }
 
-  const conn = new PSDB(dbBranch);
-  sharedConn = conn;
+  const pool = mysql.createPool({
+    host: process.env.PLANETSCALE_DB_HOST,
+    user: process.env.PLANETSCALE_DB_USERNAME,
+    password: process.env.PLANETSCALE_DB_PASSWORD,
+    database: process.env.PLANETSCALE_DB,
+    ssl: {
+      rejectUnauthorized: true,
+    },
+  });
 
-  return sharedConn;
+  const promisePool = pool.promise();
+  sharedPool = promisePool;
+
+  return sharedPool;
 }
