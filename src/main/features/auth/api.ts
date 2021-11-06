@@ -1,6 +1,6 @@
 import { fetcher } from '../../../shared/utils/fetcher';
 
-function login(credentials: Object) {
+export function login(credentials: Object) {
   const payload = {
     data: credentials,
   };
@@ -11,8 +11,6 @@ function login(credentials: Object) {
   });
 }
 
-function fetchUserData() {
+export function fetchBootData() {
   return fetcher('/api/boot');
 }
-
-export { login, fetchUserData };

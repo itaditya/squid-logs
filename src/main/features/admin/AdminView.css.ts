@@ -8,12 +8,16 @@ export const adminViewClass = style({
   paddingBlock: '60px',
 });
 
-export const actionsGridClass = style({
+export const sectionClass = style({
+  display: 'contents',
+});
+
+export const gridClass = style({
   display: 'grid',
-  gridTemplateColumns: '250px 1fr 1fr',
+  gridTemplateColumns: 'repeat(4, 1fr)',
   gap: '40px 10px',
 });
 
-export const actionRowClass = style({
+export const rowClass = style({
   display: 'contents',
 });
