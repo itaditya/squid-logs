@@ -11,4 +11,8 @@ function login(credentials: Object) {
   });
 }
 
-export { login };
+function fetchUserData() {
+  return fetcher('/api/boot');
+}
+
+export { login, fetchUserData };

@@ -1,5 +1,7 @@
 import type { FormEvent } from 'react';
 import { useId } from '@radix-ui/react-id';
+import { useAppSelector, useAppDispatch } from '../../../app/hooks';
+import { loginAction } from '../../actions';
 import {
   formClass,
   formDescriptionClass,
@@ -10,13 +12,29 @@ import {
   submitActionClass,
 } from './EmailLogin.css';
 
+function getFormData(formElem: HTMLFormElement) {
+  const instance = new FormData(formElem);
+  const formData = Object.fromEntries(instance.entries());
+
+  return formData;
+}
+
 export function EmailLogin() {
+  const loginStatus = useAppSelector((state) => state.auth.loginStatus);
+  const dispatch = useAppDispatch();
   const emailInputId = useId();
   const passwordInputId = useId();
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(`event`, event); // aditodo remove this
+
+    const credentials = getFormData(event.currentTarget);
+
+    if (!credentials.email || !credentials.password || loginStatus === 'pending') {
+      return;
+    }
+    const result = await dispatch(loginAction(credentials));
+    console.log(`result`, result); // aditodo remove this
   }
 
   return (
@@ -31,6 +49,7 @@ export function EmailLogin() {
           id={emailInputId}
           type="email"
           name="email"
+          required
           placeholder="Eg- frontman@squidcorp.com"
         />
       </div>
@@ -43,12 +62,17 @@ export function EmailLogin() {
           id={passwordInputId}
           type="password"
           name="password"
+          required
           placeholder="Eg- paymemoney"
         />
       </div>
       <div className={actionsClass}>
-        <button className={submitActionClass} type="submit">
-          Login
+        <button
+          className={submitActionClass}
+          aria-disabled={loginStatus === 'pending'}
+          type="submit"
+        >
+          {loginStatus === 'pending' ? 'Logging In...' : 'Login'}
         </button>
       </div>
     </form>
