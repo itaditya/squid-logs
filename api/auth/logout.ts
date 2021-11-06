@@ -6,6 +6,7 @@ import { deleteSession } from '../../server/queries/sessions';
 const conn = getConnection();
 
 async function logoutHandler(req: VercelRequest, res: VercelResponse) {
+  // Todo- Handle case where previousSessionId doesn't exist.
   const previousSessionId = getSessionCookie(req.cookies);
   await conn.execute(deleteSession, [previousSessionId]);
 
