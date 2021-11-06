@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../shared/ProtectedRoute';
 import { HomeView } from '../home/HomeView';
+import { AdminView } from '../admin/AdminView';
 import { AuthView } from '../auth/AuthView/AuthView';
 import { LoginView } from '../auth/LoginView/LoginView';
 import { VerifyEmailView } from '../auth/VerifyEmailView/VerifyEmailView';
@@ -24,6 +25,7 @@ function App() {
           <Route path="login" element={<LoginView />} />
           <Route path="verify_email" element={<VerifyEmailView />} />
         </Route>
+        <Route path="admin" element={<AdminView />} />
         <Route path="*" element={<NotFoundView />} />
       </Routes>
     </div>
