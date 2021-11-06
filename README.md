@@ -6,6 +6,7 @@ The project is just an excuse so I can try the new cutting edge stuff like Redux
 
 1. Don't use planetscale-node package in serverless environment since it creates CA Certificate on init which leads to slow bootup time. PlanetScale service now supports connecting with MySQL client, Prisma etc with username + password so use those instead.
 1. In MySQL, booleans are stored as `tinyint(1)`. I guess ORMs automatically convert it to boolean values which doesn't happen with a simple client like `mysql2`.
+1. For this project most queries only need the values to by dynamic and not the column names etc. So prepared statements worked fine without having to worry about SQL injection.
 1. API server should have a transform layer at receive and respond points so it can do things like change camelCase data to snake_case & vice-versa, request validations, response cleaning.
 1. The client should send `Content-Type: application/json` header so Vercel can automatically parse the body as JSON.
 1. On Chromium, even localhost can work with Secure HttpOnly Cookies.
