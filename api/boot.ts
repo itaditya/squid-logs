@@ -28,11 +28,6 @@ async function getUserId(sessionId) {
   return userId;
 }
 
-async function getParticipantsListData() {
-  const [participants] = await conn.execute(getParticipantsList, []);
-  return participants;
-}
-
 async function getCurrentOrganiserData(userId) {
   const [organisers] = await conn.execute(getOrganiserById, [userId]);
 
@@ -74,7 +69,7 @@ async function bootHandler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const [participants, organiser] = await Promise.all([
-      getParticipantsListData(),
+      getParticipantsList(conn),
       getCurrentOrganiserData(userId),
     ]);
     res.status(200).json({

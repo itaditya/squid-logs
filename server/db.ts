@@ -1,8 +1,9 @@
 import { createPool } from 'mysql2';
+import type { Pool } from 'mysql2';
 
 let sharedPool = null;
 
-export function getConnection() {
+export function getConnection(): Pool {
   if (sharedPool) {
     return sharedPool;
   }

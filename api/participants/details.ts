@@ -16,9 +16,9 @@ async function participantByIdHandler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const participantId = query.id;
+  const participantIdParam = query.id;
 
-  if (!participantId) {
+  if (!participantIdParam || typeof participantIdParam !== 'string') {
     res.status(400).json({
       error: {
         message: 'Please provide id query param',
@@ -28,8 +28,8 @@ async function participantByIdHandler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const [results] = await conn.execute(getParticipantById, [participantId]);
-    const participant = results[0];
+    const participantId = Number(participantIdParam);
+    const participant = await getParticipantById(conn, { participantId });
     res.status(200).json({
       data: participant,
     });
