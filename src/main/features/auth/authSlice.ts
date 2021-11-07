@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { appInit } from '../app/actions';
+import { appInit, AppInitPayload } from '../app/actions';
 import { loginAction } from './actions';
+import { GetBootData } from '../../../../apiTypes/boot';
 
 export interface AuthState {
   loginStatus: 'idle' | 'pending' | 'success' | 'error';
-  currentOrganiser: Object | null;
+  currentOrganiser: null | GetBootData['data']['currentOrganiser'];
 }
 
 const initialState: AuthState = {
@@ -21,11 +22,11 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(appInit, (state, action: PayloadAction<Object>) => {
+    builder.addCase(appInit, (state, action: PayloadAction<AppInitPayload>) => {
       const { status, data } = action.payload;
 
       if (status === 'success') {
-        state.currentOrganiser = data.current_organiser;
+        state.currentOrganiser = data.currentOrganiser;
       }
     });
 
@@ -33,9 +34,9 @@ export const authSlice = createSlice({
       state.loginStatus = 'pending';
     });
 
-    builder.addCase(loginAction.fulfilled, (state, action: PayloadAction<Object>) => {
+    builder.addCase(loginAction.fulfilled, (state, action: PayloadAction<GetBootData>) => {
       const { data } = action.payload;
-      state.currentOrganiser = data.current_organiser;
+      state.currentOrganiser = data.currentOrganiser;
       state.loginStatus = 'success';
     });
   },

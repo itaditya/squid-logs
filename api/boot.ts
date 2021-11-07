@@ -5,6 +5,7 @@ import { getSessionCookie } from '../server/utils/sessionCookie';
 import { getParticipantsList } from '../server/queries/participants';
 import { getOrganiserById } from '../server/queries/organisers';
 import { getSessionById } from '../server/queries/sessions';
+import { GetBootData } from '../apiTypes/boot';
 
 const conn = getConnection();
 
@@ -70,12 +71,13 @@ async function bootHandler(req: VercelRequest, res: VercelResponse) {
       getParticipantsList(conn),
       getCurrentOrganiserData(organiserId),
     ]);
-    res.status(200).json({
+    const responseJson: GetBootData = {
       data: {
         participants,
-        current_organiser: organiser,
+        currentOrganiser: organiser,
       },
-    });
+    }
+    res.status(200).json(responseJson);
   } catch (error) {
     console.log(error);
     res.status(500).json({
