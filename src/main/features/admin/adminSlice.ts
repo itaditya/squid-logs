@@ -8,7 +8,7 @@ type ApiStatus = 'idle' | 'pending' | 'success' | 'error' | 'invalid';
 
 type Organiser = GetListOrganisers['data'][number];
 
-const organisersAdapter = createEntityAdapter<Organiser>({});
+const organisersAdapter = createEntityAdapter<Organiser>();
 
 export const organisersDataSelectors = organisersAdapter.getSelectors<RootState>(
   (state) => state.admin.organisers.data,
@@ -58,7 +58,7 @@ const initialState: AdminState = {
   },
 };
 
-export const adminSlice = createSlice({
+const adminSlice = createSlice({
   name: 'admin',
   initialState,
   reducers: {},

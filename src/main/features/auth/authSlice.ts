@@ -13,7 +13,7 @@ const initialState: AuthState = {
   currentOrganiser: null,
 };
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
