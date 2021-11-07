@@ -7,8 +7,8 @@ export function fetchOrganisersList() {
 export function mutateEmailVerificationStatus({ organiserId, emailVerified }) {
   const payload = {
     data: {
-      organiser_id: organiserId,
-      email_verified: emailVerified,
+      organiserId,
+      emailVerified,
     },
   };
 

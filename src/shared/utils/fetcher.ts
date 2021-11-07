@@ -50,7 +50,7 @@ export async function fetcher(url: RequestInfo, options: Options = {}) {
   const { ok, status, statusText } = response;
 
   if (format === 'json') {
-    const result = response.json();
+    const result = await response.json();
     // @ts-ignore
     const errorMessage = result?.error?.message;
 

@@ -6,7 +6,7 @@ function getCompletionStatus(currentOrganiser) {
     return 'login';
   }
 
-  if (!currentOrganiser.email_verified) {
+  if (!currentOrganiser.emailVerified) {
     return 'verify_email';
   }
 

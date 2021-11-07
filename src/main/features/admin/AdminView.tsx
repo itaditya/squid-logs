@@ -35,7 +35,7 @@ export function AdminView() {
               <div className={rowClass} key={organiserId}>
                 <div>{organiser.name}</div>
                 <div>{organiser.email}</div>
-                <div>{organiser.email_verified ? 'Verified' : 'Unverified'}</div>
+                <div>{organiser.emailVerified ? 'Verified' : 'Unverified'}</div>
                 <div>
                   <button onClick={() => handleEmailVerifyToggle(organiserId)}>
                     {emailVerificationStatus === 'pending' ? 'Toggling' : 'Email Verify Toggle'}

@@ -2,16 +2,11 @@ import { createSlice, createEntityAdapter, PayloadAction, EntityState } from '@r
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
 import { fetchOrganisersList, mutateEmailVerificationStatus } from './api';
+import { GetListOrganisers } from '../../../../apiTypes/organisers/list';
 
 type ApiStatus = 'idle' | 'pending' | 'success' | 'error' | 'invalid';
 
-type Organiser = {
-  id: string;
-  email: string;
-  email_verified: boolean;
-  role: string;
-  name: string;
-};
+type Organiser = GetListOrganisers['data'][number];
 
 const organisersAdapter = createEntityAdapter<Organiser>({});
 
@@ -31,7 +26,7 @@ export const verifyEmailToggleAction = createAsyncThunk(
     const organiser = organisersDataSelectors.selectById(state, organiserId);
     const responseData = await mutateEmailVerificationStatus({
       organiserId,
-      emailVerified: !organiser?.email_verified,
+      emailVerified: !organiser?.emailVerified,
     });
     return responseData;
   },
@@ -71,7 +66,7 @@ export const adminSlice = createSlice({
     builder.addCase(fetchOrganisersListAction.pending, (state) => {
       state.organisers.apiStatus.getOrganisers = 'pending';
     });
-    builder.addCase(fetchOrganisersListAction.fulfilled, (state, action: PayloadAction<Object>) => {
+    builder.addCase(fetchOrganisersListAction.fulfilled, (state, action: PayloadAction<GetListOrganisers>) => {
       const { data } = action.payload;
       const organisers = data || [];
       state.organisers.apiStatus.getOrganisers = 'success';
@@ -84,16 +79,16 @@ export const adminSlice = createSlice({
         state.organisers.apiStatus.verifyEmail.byId[organiserId] = 'pending';
       }
     });
-    builder.addCase(verifyEmailToggleAction.fulfilled, (state, action: PayloadAction<Object>) => {
+    builder.addCase(verifyEmailToggleAction.fulfilled, (state, action) => {
       const organiserId = action.meta.arg;
-      const emailVerified = action.payload.data.email_verified;
+      const emailVerified = action.payload.data.emailVerified;
 
       if (organiserId) {
         state.organisers.apiStatus.verifyEmail.byId[organiserId] = 'success';
         organisersAdapter.updateOne(state.organisers.data, {
           id: organiserId,
           changes: {
-            email_verified: emailVerified,
+            emailVerified: emailVerified,
           },
         });
       }

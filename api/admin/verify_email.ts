@@ -16,9 +16,7 @@ async function verifyEmailHandler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const { data = {} } = body;
-  const organiserId = data.organiser_id;
-  const emailVerified = data.email_verified;
+  const { organiserId, emailVerified } = body.data || {};
 
   if (!organiserId || typeof emailVerified !== 'boolean') {
     res.status(400).json({
@@ -34,7 +32,7 @@ async function verifyEmailHandler(req: VercelRequest, res: VercelResponse) {
     res.status(200).json({
       data: {
         message: 'email_verification value has been updated',
-        email_verified: emailVerified,
+        emailVerified: emailVerified,
       },
     });
   } catch (error) {

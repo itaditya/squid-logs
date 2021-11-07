@@ -8,7 +8,7 @@ import { getSessionById } from '../server/queries/sessions';
 
 const conn = getConnection();
 
-async function getUserId(sessionId) {
+async function getUserId(sessionId): Promise<number> {
   if (!sessionId) {
     return Promise.reject();
   }
@@ -28,14 +28,8 @@ async function getUserId(sessionId) {
   return userId;
 }
 
-async function getCurrentOrganiserData(userId) {
-  const [organisers] = await conn.execute(getOrganiserById, [userId]);
-
-  if (organisers.length < 1) {
-    return Promise.reject();
-  }
-
-  const storedOrganiser = organisers[0];
+async function getCurrentOrganiserData(organiserId: number) {
+  const storedOrganiser = await getOrganiserById(conn, { organiserId });
   const formattedOrganiser = getFormattedOrganiser(storedOrganiser);
 
   return formattedOrganiser;
@@ -54,10 +48,10 @@ async function bootHandler(req: VercelRequest, res: VercelResponse) {
   }
 
   const sessionId = getSessionCookie(cookies);
-  let userId = null;
+  let organiserId: unknown = null;
 
   try {
-    userId = await getUserId(sessionId);
+    organiserId = await getUserId(sessionId);
   } catch (error) {
     res.status(401).json({
       error: {
@@ -68,9 +62,13 @@ async function bootHandler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    // TODO: logically this condition is not required since the previous catch would handle the case, figure out clean approach.
+    if (typeof organiserId !== 'number') {
+      return;
+    }
     const [participants, organiser] = await Promise.all([
       getParticipantsList(conn),
-      getCurrentOrganiserData(userId),
+      getCurrentOrganiserData(organiserId),
     ]);
     res.status(200).json({
       data: {
