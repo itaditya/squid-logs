@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../shared/ProtectedRoute';
-import { HomeView } from '../home/HomeView';
+import { HomeView } from '../home/HomeView/HomeView';
+import { GameTimelineView } from '../gameTimeline/GameTimelineView';
 import { AdminView } from '../admin/AdminView';
 import { AuthView } from '../auth/AuthView/AuthView';
 import { LoginView } from '../auth/LoginView/LoginView';
@@ -20,7 +21,9 @@ function App() {
               <HomeView />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<GameTimelineView />} />
+        </Route>
         <Route path="auth" element={<AuthView />}>
           <Route path="login" element={<LoginView />} />
           <Route path="verify_email" element={<VerifyEmailView />} />
