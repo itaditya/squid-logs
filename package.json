@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "vite --port $PORT",
     "lint": "tsc",
+    "lint:watch": "tsc --watch",
     "build": "vite build",
     "serve": "vite preview"
   },
