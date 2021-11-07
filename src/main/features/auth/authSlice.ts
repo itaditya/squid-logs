@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { appInit, AppInitPayload } from '../app/actions';
+import { createSlice } from '@reduxjs/toolkit';
+import { appInit } from '../app/actions';
 import { loginAction } from './actions';
 import { GetBootData } from '../../../../apiTypes/boot';
 
@@ -22,7 +22,7 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(appInit, (state, action: PayloadAction<AppInitPayload>) => {
+    builder.addCase(appInit, (state, action) => {
       const { status, data } = action.payload;
 
       if (status === 'success') {
@@ -34,7 +34,7 @@ const authSlice = createSlice({
       state.loginStatus = 'pending';
     });
 
-    builder.addCase(loginAction.fulfilled, (state, action: PayloadAction<GetBootData>) => {
+    builder.addCase(loginAction.fulfilled, (state, action) => {
       const { data } = action.payload;
       state.currentOrganiser = data.currentOrganiser;
       state.loginStatus = 'success';

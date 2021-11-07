@@ -1,6 +1,6 @@
-import { createSlice, createEntityAdapter, EntityState, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, EntityState } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
-import { appInit, AppInitPayload } from '../app/actions';
+import { appInit } from '../app/actions';
 import type { GetBootData } from '../../../../apiTypes/boot';
 
 type Participant = GetBootData['data']['participants'][number];
@@ -24,7 +24,7 @@ const participantsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(appInit, (state, action: PayloadAction<AppInitPayload>) => {
+    builder.addCase(appInit, (state, action) => {
       const { status, data } = action.payload;
 
       if (status === 'success') {

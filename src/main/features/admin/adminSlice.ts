@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter, PayloadAction, EntityState } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, EntityState } from '@reduxjs/toolkit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
 import { fetchOrganisersList, mutateEmailVerificationStatus } from './api';
@@ -14,12 +14,18 @@ export const organisersDataSelectors = organisersAdapter.getSelectors<RootState>
   (state) => state.admin.organisers.data,
 );
 
-export const fetchOrganisersListAction = createAsyncThunk('organisers/list', async () => {
+export const fetchOrganisersListAction = createAsyncThunk<GetListOrganisers>('organisers/list', async () => {
   const organisersList = await fetchOrganisersList();
   return organisersList;
 });
 
-export const verifyEmailToggleAction = createAsyncThunk(
+type VerifyEmailTogglePayload = {
+  data: {
+    emailVerified: boolean;
+  };
+};
+
+export const verifyEmailToggleAction = createAsyncThunk<VerifyEmailTogglePayload, Organiser['id']>(
   'organisers/verifyEmailToggle',
   async (organiserId, thunkApi) => {
     const state = thunkApi.getState();
@@ -66,7 +72,7 @@ const adminSlice = createSlice({
     builder.addCase(fetchOrganisersListAction.pending, (state) => {
       state.organisers.apiStatus.getOrganisers = 'pending';
     });
-    builder.addCase(fetchOrganisersListAction.fulfilled, (state, action: PayloadAction<GetListOrganisers>) => {
+    builder.addCase(fetchOrganisersListAction.fulfilled, (state, action) => {
       const { data } = action.payload;
       const organisers = data || [];
       state.organisers.apiStatus.getOrganisers = 'success';
