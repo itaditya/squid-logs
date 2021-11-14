@@ -105,9 +105,9 @@ async function loginHandler(req: VercelRequest, res: VercelResponse) {
 
   if (previousSessionId) {
     // TODO- Handle edge case where user has sessionId in cookie but its absent in session store.
-    res.status(400).json({
-      error: {
-        message: 'Already logged in',
+    res.status(200).json({
+      data: {
+        message: 'Already logged in so this is a noop',
       },
     });
     return;
