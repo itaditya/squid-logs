@@ -37,7 +37,11 @@ export function EmailLogin() {
     <form className={formClass} name="loginForm" onSubmit={handleSubmit(handleFormSubmit)}>
       <p className={formDescriptionClass}>You can login to Squid Logs by filling this form</p>
       <div className={fieldClass}>
-        <label className={labelClass} htmlFor={emailInputId}>
+        <label
+          className={labelClass}
+          htmlFor={emailInputId}
+          data-status={isSubmitting ? 'submitting' : 'idle'}
+        >
           E-mail Id
         </label>
         <input
@@ -46,6 +50,7 @@ export function EmailLogin() {
           type="email"
           aria-invalid={emailErrorMsg ? true : false}
           readOnly={isSubmitting}
+          data-status={isSubmitting ? 'submitting' : 'idle'}
           {...register('email', {
             required: {
               value: true,
@@ -57,7 +62,11 @@ export function EmailLogin() {
         {emailErrorMsg && <span role="alert">{emailErrorMsg}</span>}
       </div>
       <div className={fieldClass}>
-        <label className={labelClass} htmlFor={passwordInputId}>
+        <label
+          className={labelClass}
+          htmlFor={passwordInputId}
+          data-status={isSubmitting ? 'submitting' : 'idle'}
+        >
           Password
         </label>
         <input
@@ -66,6 +75,7 @@ export function EmailLogin() {
           type="password"
           aria-invalid={passwordErrorMsg ? true : false}
           readOnly={isSubmitting}
+          data-status={isSubmitting ? 'submitting' : 'idle'}
           {...register('password', {
             required: {
               value: true,

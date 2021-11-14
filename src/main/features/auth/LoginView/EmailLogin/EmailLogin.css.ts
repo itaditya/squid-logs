@@ -26,6 +26,11 @@ export const fieldClass = style({
 
 export const labelClass = style({
   fontSize: '20px',
+  selectors: {
+    '&[data-status="submitting"]': {
+      pointerEvents: 'none',
+    },
+  },
 });
 
 export const inputClass = style({
@@ -40,6 +45,10 @@ export const inputClass = style({
   borderBottomColor: getHslColor(vars.color.raw.black[900]),
   transition: '0.2s ease-in-out',
   selectors: {
+    '&[data-status="submitting"]': {
+      opacity: 0.7,
+      pointerEvents: 'none',
+    },
     '&::placeholder': {
       color: getHslColor(vars.color.raw.gray[200]),
     },
