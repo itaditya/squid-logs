@@ -1,7 +1,6 @@
-import type { FormEvent } from 'react';
 import { useId } from '@radix-ui/react-id';
-import { useAppSelector, useAppDispatch } from '../../../app/hooks';
-import { loginAction } from '../../actions';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useLogin } from '../../hooks';
 import {
   formClass,
   formDescriptionClass,
@@ -12,33 +11,30 @@ import {
   submitActionClass,
 } from './EmailLogin.css';
 
-function getFormData(formElem: HTMLFormElement) {
-  const instance = new FormData(formElem);
-  const formData = Object.fromEntries(instance.entries());
-
-  return formData;
-}
+type Credentials = {
+  email: string;
+  password: string;
+};
 
 export function EmailLogin() {
-  const loginStatus = useAppSelector((state) => state.auth.loginStatus);
-  const dispatch = useAppDispatch();
+  const { startLogin } = useLogin();
   const emailInputId = useId();
   const passwordInputId = useId();
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm<Credentials>();
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const emailErrorMsg = errors.email?.message;
+  const passwordErrorMsg = errors.password?.message;
 
-    const credentials = getFormData(event.currentTarget);
-
-    if (!credentials.email || !credentials.password || loginStatus === 'pending') {
-      return;
-    }
-    const result = await dispatch(loginAction(credentials));
-    console.log(`result`, result); // aditodo remove this
-  }
+  const handleFormSubmit: SubmitHandler<Credentials> = async (credentials) => {
+    return startLogin(credentials);
+  };
 
   return (
-    <form className={formClass} name="loginForm" onSubmit={handleSubmit}>
+    <form className={formClass} name="loginForm" onSubmit={handleSubmit(handleFormSubmit)}>
       <p className={formDescriptionClass}>You can login to Squid Logs by filling this form</p>
       <div className={fieldClass}>
         <label className={labelClass} htmlFor={emailInputId}>
@@ -48,10 +44,17 @@ export function EmailLogin() {
           className={inputClass}
           id={emailInputId}
           type="email"
-          name="email"
-          required
+          aria-invalid={emailErrorMsg ? true : false}
+          readOnly={isSubmitting}
+          {...register('email', {
+            required: {
+              value: true,
+              message: 'Please provide E-mail Id',
+            },
+          })}
           placeholder="Eg- frontman@squidcorp.com"
         />
+        {emailErrorMsg && <span role="alert">{emailErrorMsg}</span>}
       </div>
       <div className={fieldClass}>
         <label className={labelClass} htmlFor={passwordInputId}>
@@ -61,18 +64,21 @@ export function EmailLogin() {
           className={inputClass}
           id={passwordInputId}
           type="password"
-          name="password"
-          required
+          aria-invalid={passwordErrorMsg ? true : false}
+          readOnly={isSubmitting}
+          {...register('password', {
+            required: {
+              value: true,
+              message: 'Please provide password',
+            },
+          })}
           placeholder="Eg- paymemoney"
         />
+        {passwordErrorMsg && <span role="alert">{passwordErrorMsg}</span>}
       </div>
       <div className={actionsClass}>
-        <button
-          className={submitActionClass}
-          aria-disabled={loginStatus === 'pending'}
-          type="submit"
-        >
-          {loginStatus === 'pending' ? 'Logging In...' : 'Login'}
+        <button className={submitActionClass} aria-disabled={isSubmitting} type="submit">
+          {isSubmitting ? 'Logging In...' : 'Login'}
         </button>
       </div>
     </form>

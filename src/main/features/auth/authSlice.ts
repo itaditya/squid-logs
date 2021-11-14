@@ -39,6 +39,10 @@ const authSlice = createSlice({
       state.currentOrganiser = data.currentOrganiser;
       state.loginStatus = 'success';
     });
+
+    builder.addCase(loginAction.rejected, (state) => {
+      state.loginStatus = 'error';
+    });
   },
 });
 
